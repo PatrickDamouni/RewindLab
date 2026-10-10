@@ -6,7 +6,8 @@ RewindLab answers: **What could a researcher have known at a particular time?**
 A later correction may change today's view of an observation, but it must not
 silently change an earlier point-in-time result. The portfolio proof is a
 repeatable late-correction demo plus a public failure corpus and measured
-recovery results. This project uses synthetic, labeled data; it is not a
+recovery results. Its fault corpus uses labeled synthetic data, and a separate
+curated BLS example shows a published three-vintage revision. It is not a
 trading system or investment advice.
 
 ## Phase gates
@@ -37,11 +38,14 @@ only after its requirements ship.
 
 ## Dataset progression
 
-Start with deterministic synthetic fixtures because expected answers can be
-proved exactly. Add one real public dataset only after Phase 1 correctness is
-stable. Record its source, license, download date, transformation, and known
-limitations; never imply historical availability when the source lacks a
-verifiable publication or receipt time.
+The deterministic synthetic fault corpus has exact expected answers. A separate
+[BLS example](../examples/bls/README.md) traces the May 2025 monthly change in
+seasonally adjusted total nonfarm **payroll jobs** across three archived
+releases. Its `known_at` timestamps use the official embargo-lift time as a
+release-time proxy, not observed researcher receipt times. The example records
+source links, public domain status, verification date, and transformation
+limits. Keep real release claims separate from simulated corpus timing and
+measured benchmarks.
 
 ## Planning workflow
 

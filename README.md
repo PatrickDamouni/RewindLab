@@ -5,7 +5,8 @@
 RewindLab is a small, reproducible data engineering project. Its core
 stores immutable revisions with two timestamps: `valid_at` says when an
 observation applies; `known_at` says when it became available. A historical
-query uses both. The included data is synthetic and has a known answer.
+query uses both. The core demos and failure corpus use synthetic data with
+known answers; a separate BLS example shows a documented real revision.
 
 ## Run the first demo
 
@@ -62,6 +63,19 @@ The [benchmark report](docs/benchmarks/local-synthetic-seed-1729.json) includes
 raw monotonic timing samples, machine details, workload, and metric definitions.
 Results describe this local SQLite workload only. The simulated `known_at`
 timestamps do not measure live publication lag.
+
+## Run the real-data example
+
+```bash
+PYTHONPATH=src python3 examples/bls/demo.py
+```
+
+The [BLS example](examples/bls/README.md) traces the May 2025 change in
+seasonally adjusted total nonfarm payroll jobs through three archived releases:
+**+139,000 → +144,000 → +19,000**. Its `known_at` values use the official
+embargo-lift time as a release-time proxy; they are not evidence of when a
+researcher received the figures. The example runs offline from a small,
+source-linked fixture.
 
 ## Inspect a persistent dataset
 
