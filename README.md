@@ -1,0 +1,80 @@
+# RewindLab
+
+**What could a researcher actually have known at a particular time?**
+
+RewindLab is a small, reproducible data engineering project. Its first phase
+stores immutable revisions with two timestamps: `valid_at` says when an
+observation applies; `known_at` says when it became available. A historical
+query uses both. The included data is synthetic and has a known answer.
+
+## Run the first demo
+
+From this directory, with Python 3.10 or newer:
+
+```bash
+PYTHONPATH=src python3 -m rewindlab demo
+PYTHONPATH=src python3 -m unittest discover -s tests -v
+PYTHONPATH=src python3 -m unittest discover -s integrations -p 'test_*.py' -v
+```
+
+The demo prints a signal sum of **300 as known on January 4, 2025** and
+**1400 when queried with later knowledge**. A January 9 correction and a
+January 10 late arrival account for the difference. These are toy values,
+not trading signals or investment results.
+
+The machine-readable version is useful for an incident review:
+
+```bash
+PYTHONPATH=src python3 -m rewindlab demo --json | python3 integrations/review_incident.py -
+```
+
+The second command prints an offline review prompt. It needs no account,
+network connection, or model provider. See [integration setup](integrations/README.md)
+for the optional live Hermes Agent route through OmniRoute.
+
+## Inspect a persistent dataset
+
+```bash
+PYTHONPATH=src python3 -m rewindlab seed --database /tmp/rewindlab-demo.db
+PYTHONPATH=src python3 -m rewindlab query \
+  --database /tmp/rewindlab-demo.db \
+  --valid-through 2025-01-03T23:59:59Z \
+  --known-through 2025-01-04T00:00:00Z
+```
+
+Run `seed` again to see exact duplicate deliveries ignored. Omit
+`--known-through` to see the latest-known view. Use a new database path to
+repeat the demo from an empty state.
+
+## Plan and phase gates
+
+The [roadmap](docs/roadmap.md) defines three testable phases. Phase 1 is a
+single-process point-in-time core. Phase 2 adds seeded failure cases, replay
+verification, and measured performance. Phase 3 adds a read-only incident
+assistant. The current implementation is Phase 1; later phases are planned in
+[OpenSpec changes](openspec/changes/).
+
+OpenSpec is installed as a **local development dependency** and initialized
+for Codex and Hermes Agent. To validate the planning artifacts:
+
+```bash
+npm ci
+npm run spec:check
+```
+
+Hermes does not load project-local OpenSpec skills automatically. Add this
+project's `.hermes/skills` path to `skills.external_dirs` in the Hermes
+profile you choose if you want to use those skills inside Hermes. This does
+not affect the RewindLab demo.
+
+## Design boundaries
+
+- The revision log and queries own data correctness; AI can only review a
+  JSON evidence snapshot.
+- Phase 1 uses SQLite and the Python standard library so anyone can run it
+  locally. It does not claim distributed scale or production reliability.
+- Synthetic fixture results are labeled as such. Future performance claims
+  will include the workload, test machine, commands, and raw results.
+
+The project direction draws on Two Sigma's public discussion of
+[data versioning, replay, lineage, and quality checks](https://www.twosigma.com/articles/treating-data-as-code-at-two-sigma/).

@@ -1,0 +1,15 @@
+# Used by review_incident.py in a temporary HERMES_HOME for each live review.
+# No credential is stored in this file.
+model:
+  default: auto
+  provider: custom
+  base_url: http://127.0.0.1:20128/v1
+  key_env: OMNIROUTE_API_KEY
+  api_mode: chat_completions
+
+# The review receives a JSON snapshot in its prompt. It needs no file,
+# terminal, browser, network, or other agent tools.
+agent:
+  coding_context: off
+platform_toolsets:
+  cli: []
