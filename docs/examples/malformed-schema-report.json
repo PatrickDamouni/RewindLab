@@ -1,0 +1,168 @@
+{
+  "report_schema": "rewindlab.incident-report.v1",
+  "run_id": "corpus-1729-68ff6781c7883b40",
+  "case_id": "malformed_schema",
+  "evidence_digest": "fcf70fd382307f504315bb888acf9ad2567ec964d73a0840dc79fac7df766355",
+  "mode": "offline_template",
+  "model_called": false,
+  "provider_path": null,
+  "injected_fault_category": "schema_rejection",
+  "observed_mismatch": null,
+  "expected": {
+    "case_id": "malformed_schema",
+    "seed": 1729,
+    "source_type": "synthetic",
+    "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
+    "import_status": "rejected",
+    "probes": [
+      {
+        "known_through": "2025-01-04T00:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T08:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-10T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      }
+    ]
+  },
+  "observed": {
+    "case_id": "malformed_schema",
+    "seed": 1729,
+    "source_type": "synthetic",
+    "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
+    "import_status": "rejected",
+    "probes": [
+      {
+        "known_through": "2025-01-04T00:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T08:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-10T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      }
+    ]
+  },
+  "proposal": {
+    "proposal_schema": "rewindlab.incident-proposal.v1",
+    "run_id": "corpus-1729-68ff6781c7883b40",
+    "fault_category": "schema_rejection",
+    "fault_hypothesis": "A delivery omitted known_at; the batch was rejected without a partial write.",
+    "citation_ids": [
+      "attempted:1",
+      "run:import-error",
+      "run:expected",
+      "run:observed"
+    ],
+    "uncertainty": "Template uses the known synthetic injection and deterministic run; it is not an independent diagnosis."
+  },
+  "cited_evidence": [
+    {
+      "evidence_id": "attempted:1",
+      "kind": "attempted_invalid_input",
+      "event_ids": [
+        "event-c"
+      ]
+    },
+    {
+      "evidence_id": "run:import-error",
+      "kind": "import_error",
+      "event_ids": [
+        "event-c"
+      ]
+    },
+    {
+      "evidence_id": "run:expected",
+      "kind": "oracle_result",
+      "event_ids": [
+        "event-a",
+        "event-b"
+      ]
+    },
+    {
+      "evidence_id": "run:observed",
+      "kind": "observed_result",
+      "event_ids": [
+        "event-a",
+        "event-b"
+      ]
+    }
+  ],
+  "supporting_event_ids": [
+    "event-a",
+    "event-b",
+    "event-c"
+  ],
+  "validation": {
+    "oracle_fault_category": "schema_rejection",
+    "category_matches_oracle": true,
+    "unsupported_citation_ids": [],
+    "missing_oracle_citation_ids": [],
+    "citations_match_oracle": true,
+    "passed": true,
+    "scope": "Citation existence and required IDs are checked; free-text claims are not semantically verified."
+  }
+}

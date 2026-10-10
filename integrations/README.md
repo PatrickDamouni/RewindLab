@@ -1,39 +1,97 @@
-# Hermes Agent + OmniRoute incident reviews
+# Incident analysis: evidence first
 
-RewindLab's replay and point-in-time query results are computed by RewindLab. This integration gives Hermes Agent a **read-only JSON snapshot** to summarize for a human engineer. The default command is offline and does not require an account, API key, or running service.
+RewindLab's SQLite replay and Python oracle determine correctness. The analyst
+reads a **copy** of one synthetic corpus case and cannot update the data or
+oracle. All six injected conditions currently pass their oracle checks, so
+`injected_fault_category` describes the test condition while
+`observed_mismatch` is `null`. Do not present an injected condition as a found
+engine defect.
 
-## Offline review packet
+## Deterministic offline report
 
-From the RewindLab directory, pipe the core demo's actual JSON report into the reviewer:
-
-```bash
-PYTHONPATH=src python3 -m rewindlab demo --json | python3 integrations/review_incident.py -
-```
-
-This prints the exact prompt that would be sent to Hermes. It makes no network request and does not change either cloned repository. You can also pass a JSON file path. The report must be a JSON object (maximum 128 KB). The core demo data is synthetic.
-
-## Optional live review
-
-1. Start OmniRoute. The cloned source supports `npm install` followed by `npm run dev` from `../OmniRoute`, or use its documented installation method. The local dashboard is `http://localhost:20128`; the API base URL is `http://localhost:20128/v1`.
-2. In **Dashboard → Providers**, connect an eligible upstream provider that permits your intended use. Then copy an OmniRoute API key from **Dashboard → Endpoints**. OmniRoute alone does not supply a guaranteed usable model; `auto` needs at least one eligible route.
-3. Install the Hermes CLI using its documented installer or prepare the cloned source as described in the Hermes repository. The clone is source code, not an installed command.
-4. Set the OmniRoute key in your shell session, then run a live review:
+From the RewindLab directory:
 
 ```bash
-export OMNIROUTE_API_KEY='paste-key-here'
-PYTHONPATH=src python3 -m rewindlab demo --json | python3 integrations/review_incident.py - --live
+PYTHONPATH=src python3 -m rewindlab evidence --case malformed_schema --report work/incident-evidence.json
+PYTHONPATH=src python3 integrations/review_incident.py work/incident-evidence.json --report work/incident-report.json
 ```
 
-If your Hermes executable is not on `PATH`, set `HERMES_BIN` to its absolute path. Do not put the key in RewindLab files or commit it.
-The repository's [`.env.example`](../.env.example) lists the optional variable names without credentials.
+The second command prints and saves a JSON report labeled `offline_template`
+and `model_called: false`. It requires no network, account, or API key. The
+bundle includes the exact case, seed, expected/observed results, immutable
+revision and delivery evidence IDs, an `attempted:1` ID for the invalid input,
+and a SHA-256 integrity digest. The digest detects edits to the bundle; it is
+not a cryptographic signature. The validator also regenerates this deterministic
+synthetic case and rejects a self-rehashed fabricated bundle. Each `--report`
+path must be a new `.json` file; existing files and symlink paths are refused.
+Choose a fresh filename when rerunning these commands. Reports cite evidence IDs,
+list their supporting event IDs (including invalid attempted rows), and validate their
+existence, required oracle citations, and proposed category. Free-text claims
+are **not** semantically verified. To inspect the eventual model prompt:
 
-Live mode first checks OmniRoute's `/v1/models` endpoint. It then starts `hermes chat --query-file - --oneshot -Q` with [hermes-config.yaml.example](hermes-config.yaml.example) in a fresh temporary `HERMES_HOME`. The config selects the custom endpoint, model `auto`, and `OMNIROUTE_API_KEY` as a credential pointer. Hermes resolves the explicit empty CLI toolset to zero tools in the checked-out source. The subprocess receives only the OmniRoute key and essential system variables; other provider credentials and Hermes config overrides are omitted. The temporary home is removed after the command exits. The snapshot is transmitted to the upstream model chosen by OmniRoute; only use synthetic or otherwise approved data.
+```bash
+PYTHONPATH=src python3 integrations/review_incident.py work/incident-evidence.json --print-prompt
+```
 
-`/v1/models` proves that the local API and key work; the subsequent chat call is the actual route check. Upstream provider usage or charges depend on the connected account. Hermes output is an analysis aid and must not modify the deterministic dataset or serve as evidence that replay is correct.
+`rewindlab evidence --case` accepts `baseline`, `duplicate`, `out_of_order`,
+`malformed_schema`, `late_correction`, and `interrupted_import`. Omitting
+`--report` writes JSON to stdout, which can be piped into the offline reviewer.
+Live mode requires a saved bundle path so a provider error cannot discard the
+only copy of the evidence.
 
-Live mode has not been verified in the initial checkout because no upstream OmniRoute provider or Hermes CLI is configured. The offline packet and its error paths are covered by `python3 -m unittest discover -s integrations -p 'test_*.py' -v`.
+## Optional Hermes Agent → OmniRoute live report
 
-## Repository evidence used
+The checked-out Hermes commit is `3eb7ed08`; OmniRoute is `02f2f00e`. Their
+local documentation confirms `hermes chat --query-file - --oneshot -Q`, the
+custom provider settings in [hermes-config.yaml.example](hermes-config.yaml.example),
+the explicit empty CLI toolset, and OmniRoute's local `/v1/models` endpoint.
+The live prompt sends only an analyst view: it omits the oracle fault label,
+oracle citation list, and case-name label. Its run ID is opaque so category
+agreement is not answered by the prompt itself. The full saved bundle remains
+available to the validator. The live adapter captures the Hermes answer, requires one strict JSON object,
+validates the same evidence IDs and oracle category, and saves a separate
+report only after validation. A category disagreement is recorded in the
+report; malformed output, timeout, or provider failure saves no report.
 
-- Hermes: `website/docs/integrations/providers.md`, **Custom & Self-Hosted LLM Providers**; `website/docs/reference/cli-commands.md`, `hermes chat`; `hermes_cli/tools_config.py`, empty platform toolset resolution.
-- OmniRoute: `README.md`, **Quick Start**, for local URL, API key location, `auto`, and `/v1/models`.
+1. Start OmniRoute from the checked-out source or its documented installer.
+   Its dashboard is `http://localhost:20128` and API base is
+   `http://localhost:20128/v1`.
+2. In **Dashboard → Providers**, connect a provider that permits the use and
+   has an eligible model. Copy a local OmniRoute key from **Endpoints**.
+   `auto` needs an eligible route; a fresh install does not guarantee one.
+3. Install the Hermes CLI from its checked-out repository or documented
+   installer. The source clone alone does not put `hermes` on `PATH`.
+4. Set the key in your shell and run:
+
+```bash
+export OMNIROUTE_API_KEY='paste-local-key-here'
+PYTHONPATH=src python3 integrations/review_incident.py work/incident-evidence.json --live --report work/live-incident-report.json
+```
+
+Set `HERMES_BIN` to the executable path if needed. Do not put credentials in
+the repository or send them in chat. The child process receives only the
+OmniRoute key and essential system environment variables; it uses a fresh
+temporary `HERMES_HOME`, a custom localhost endpoint, and zero CLI tools.
+The selected synthetic bundle is sent to the upstream model chosen by
+OmniRoute. A `/v1/models` check confirms the local API/key before Hermes runs.
+The canned-mock transport smoke proves the chat route in that test setup; a
+real-provider/model smoke test is still required.
+
+The [local transport smoke](../docs/transport-smoke/README.md) ran the unchanged
+adapter through Hermes and OmniRoute against a loopback mock that returned a
+canned proposal. It verified transport and JSON parsing; **no language model
+performed inference or diagnosed an incident**. No real upstream provider has
+been tested. The adapter requests OmniRoute model `auto`, which can choose
+different upstream models between runs. Category agreement rates and a fixed
+upstream model remain unmeasured until a real provider is connected and six
+labeled live reports are evaluated with route metadata. The offline path and
+mocked live failures are tested with:
+
+```bash
+PYTHONPATH=src python3 -m unittest discover -s integrations -p 'test_*.py' -v
+```
+
+## Source checks
+
+- Hermes: `website/docs/reference/cli-commands.md` (`--query-file`, `--oneshot`, `-Q`), `website/docs/integrations/providers.md` (custom provider), `hermes_cli/tools_config.py` (explicit empty toolset).
+- OmniRoute: `README.md` (localhost endpoint, `auto`, dashboard key, and `/v1/models`).

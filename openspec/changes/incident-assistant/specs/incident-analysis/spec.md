@@ -2,8 +2,9 @@
 
 ## Purpose
 
-Incident analysis turns a reproducible failure run into a cited explanation
-while keeping model output separate from the system's correctness oracle.
+Incident analysis turns a reproducible corpus run and its injected condition
+into a cited explanation while keeping model output separate from the system's
+correctness oracle.
 
 ## ADDED Requirements
 
@@ -14,7 +15,8 @@ Analysis SHALL not modify the source dataset or oracle.
 
 #### Scenario: Bundle generated
 - **WHEN** a corpus case is selected for analysis
-- **THEN** the bundle identifies the exact run and evidence needed to inspect the failure
+- **THEN** the bundle identifies the exact run and evidence needed to inspect
+  the condition and observed outcome
 
 #### Scenario: Analysis completes
 - **WHEN** an offline or live report is produced
@@ -29,9 +31,9 @@ an evidence bundle without network access or provider credentials.
 - **THEN** it produces a report preview and explains that no model was called
 
 ### Requirement: Optional live analyst
-When configured, the system SHALL pass only the selected evidence bundle to
-Hermes Agent via OmniRoute and SHALL treat its response as a proposed diagnosis,
-not an authoritative correction.
+When configured, the system SHALL pass only a selected read-only analyst view
+derived from the evidence bundle to Hermes Agent via OmniRoute and SHALL treat
+its response as a proposed diagnosis, not an authoritative correction.
 
 #### Scenario: Provider unavailable
 - **WHEN** live analysis is requested but configuration or connectivity is unavailable

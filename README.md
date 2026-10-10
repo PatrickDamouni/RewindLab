@@ -23,15 +23,22 @@ The demo prints a signal sum of **300 as known on January 4, 2025** and
 January 10 late arrival account for the difference. These are toy values,
 not trading signals or investment results.
 
-The machine-readable version is useful for an incident review:
+Export one corpus case and produce a cited offline incident report:
 
 ```bash
-PYTHONPATH=src python3 -m rewindlab demo --json | python3 integrations/review_incident.py -
+PYTHONPATH=src python3 -m rewindlab evidence --case malformed_schema --report work/malformed-evidence.json
+PYTHONPATH=src python3 integrations/review_incident.py work/malformed-evidence.json --report work/malformed-report.json
+PYTHONPATH=src python3 integrations/review_incident.py work/malformed-evidence.json --print-prompt
 ```
 
-The second command prints an offline review prompt. It needs no account,
-network connection, or model provider. See [integration setup](integrations/README.md)
-for the optional live Hermes Agent route through OmniRoute.
+The report is labeled `model_called: false`; `--print-prompt` shows the optional
+live model input. These commands need no account, network connection, or
+provider. Each `--report` path creates a new JSON file and refuses to overwrite
+an existing file. The checked-in [malformed-schema example](docs/examples/malformed-schema-report.json)
+shows the offline output. See [integration setup](integrations/README.md) for the
+optional live Hermes Agent route through OmniRoute. A [local transport smoke](docs/transport-smoke/README.md)
+exercised that route against a canned loopback mock; no language model made an
+inference, and real-provider behavior remains unmeasured.
 
 ## Run the failure corpus
 
@@ -56,7 +63,7 @@ To reproduce the local timing report:
 ```bash
 PYTHONPATH=src python3 -m rewindlab benchmark --seed 1729 --events 1000 \
   --batch-size 100 --repetitions 5 --warmup 1 \
-  --report docs/benchmarks/local-synthetic-seed-1729.json
+  --report work/benchmark-local.json
 ```
 
 The [benchmark report](docs/benchmarks/local-synthetic-seed-1729.json) includes
@@ -94,8 +101,8 @@ repeat the demo from an empty state.
 ## Plan and phase gates
 
 The [roadmap](docs/roadmap.md) defines three phases. The point-in-time core and
-seeded failure corpus run locally. The incident assistant has an offline prompt
-path; a live model route is optional. The requirements and remaining work are
+seeded failure corpus run locally. The incident assistant has a deterministic
+offline report; a live model route is optional. The requirements and remaining work are
 tracked in [OpenSpec changes](openspec/changes/).
 
 OpenSpec is installed as a **local development dependency** and initialized

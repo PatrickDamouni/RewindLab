@@ -1,0 +1,325 @@
+{
+  "bundle_schema": "rewindlab.incident-evidence.v1",
+  "run_id": "corpus-1729-68ff6781c7883b40",
+  "case_id": "malformed_schema",
+  "seed": 1729,
+  "source_type": "synthetic",
+  "injected_fault": {
+    "category": "schema_rejection",
+    "oracle_citation_ids": [
+      "attempted:1",
+      "run:import-error",
+      "run:expected",
+      "run:observed"
+    ]
+  },
+  "observed_mismatch": null,
+  "corpus_passed": true,
+  "expected": {
+    "case_id": "malformed_schema",
+    "seed": 1729,
+    "source_type": "synthetic",
+    "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
+    "import_status": "rejected",
+    "probes": [
+      {
+        "known_through": "2025-01-04T00:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T08:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-10T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      }
+    ]
+  },
+  "observed": {
+    "case_id": "malformed_schema",
+    "seed": 1729,
+    "source_type": "synthetic",
+    "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
+    "import_status": "rejected",
+    "probes": [
+      {
+        "known_through": "2025-01-04T00:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T08:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-09T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      },
+      {
+        "known_through": "2025-01-10T12:00:00.000000Z",
+        "record_count": 2,
+        "signal_sum": 312,
+        "revision_ids": [
+          "a-original",
+          "b-original"
+        ]
+      }
+    ]
+  },
+  "event_ids": [
+    "event-a",
+    "event-b"
+  ],
+  "revision_ids": [
+    "a-corrected",
+    "a-original",
+    "b-original"
+  ],
+  "attempted_invalid_input_ids": [
+    "attempted:1"
+  ],
+  "evidence_items": [
+    {
+      "id": "revision:a-corrected",
+      "kind": "revision",
+      "value": {
+        "revision_id": "a-corrected",
+        "event_id": "event-a",
+        "valid_at": "2025-01-01T12:00:00.000000Z",
+        "known_at": "2025-01-09T09:00:00.000000Z",
+        "signal_value": 910,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "revision:a-original",
+      "kind": "revision",
+      "value": {
+        "revision_id": "a-original",
+        "event_id": "event-a",
+        "valid_at": "2025-01-01T12:00:00.000000Z",
+        "known_at": "2025-01-02T09:00:00.000000Z",
+        "signal_value": 112,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "revision:b-original",
+      "kind": "revision",
+      "value": {
+        "revision_id": "b-original",
+        "event_id": "event-b",
+        "valid_at": "2025-01-02T12:00:00.000000Z",
+        "known_at": "2025-01-03T09:00:00.000000Z",
+        "signal_value": 200,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "preload:0",
+      "kind": "preload",
+      "value": {
+        "revision_id": "a-original",
+        "event_id": "event-a",
+        "valid_at": "2025-01-01T12:00:00.000000Z",
+        "known_at": "2025-01-02T09:00:00.000000Z",
+        "signal_value": 112,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "preload:1",
+      "kind": "preload",
+      "value": {
+        "revision_id": "b-original",
+        "event_id": "event-b",
+        "valid_at": "2025-01-02T12:00:00.000000Z",
+        "known_at": "2025-01-03T09:00:00.000000Z",
+        "signal_value": 200,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "delivery:0",
+      "kind": "delivery",
+      "value": {
+        "revision_id": "a-corrected",
+        "event_id": "event-a",
+        "valid_at": "2025-01-01T12:00:00.000000Z",
+        "known_at": "2025-01-09T09:00:00.000000Z",
+        "signal_value": 910,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "attempted:1",
+      "kind": "attempted_invalid_input",
+      "value": {
+        "revision_id": "c-late",
+        "event_id": "event-c",
+        "valid_at": "2025-01-03T12:00:00.000000Z",
+        "signal_value": 304,
+        "source": "synthetic:rewindlab-seed-1729"
+      }
+    },
+    {
+      "id": "run:expected",
+      "kind": "oracle_result",
+      "value": {
+        "case_id": "malformed_schema",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+        "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+        "row_count": 2,
+        "import_status": "rejected",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "run:observed",
+      "kind": "observed_result",
+      "value": {
+        "case_id": "malformed_schema",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+        "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+        "row_count": 2,
+        "import_status": "rejected",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "run:import-error",
+      "kind": "import_error",
+      "value": "Missing revision fields: known_at"
+    }
+  ],
+  "integrity_digest": "fcf70fd382307f504315bb888acf9ad2567ec964d73a0840dc79fac7df766355"
+}

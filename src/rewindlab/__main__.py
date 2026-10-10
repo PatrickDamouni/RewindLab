@@ -15,6 +15,7 @@ from typing import Sequence
 from .store import Revision, RevisionStore, normalize_time
 from .corpus import CASE_IDS, DEFAULT_SEED, run_all, run_case
 from .benchmark import run_benchmark
+from .evidence import build_bundle, write_new_json
 
 
 DEMO_VALID_THROUGH = "2025-01-03T23:59:59Z"
@@ -81,6 +82,11 @@ def make_parser() -> argparse.ArgumentParser:
     corpus.add_argument("--seed", type=int, default=DEFAULT_SEED)
     corpus.add_argument("--json", action="store_true", help="Print full oracle and observed evidence")
     corpus.add_argument("--report", type=Path, help="Save the full JSON report")
+
+    evidence = commands.add_parser("evidence", help="Export a versioned incident evidence bundle")
+    evidence.add_argument("--case", choices=CASE_IDS, required=True)
+    evidence.add_argument("--seed", type=int, default=DEFAULT_SEED)
+    evidence.add_argument("--report", type=Path, help="Create a new JSON bundle file; stdout is used otherwise")
 
     benchmark = commands.add_parser("benchmark", help="Measure a defined local SQLite workload")
     benchmark.add_argument("--seed", type=int, default=DEFAULT_SEED)
@@ -153,6 +159,15 @@ def main(argv: Sequence[str] | None = None) -> int:
                     if case["first_mismatch"]:
                         print(f"  {case['first_mismatch']}")
             return 0 if report["passed"] else 1
+        if args.command == "evidence":
+            bundle = build_bundle(args.case, args.seed)
+            encoded = json.dumps(bundle, indent=2) + "\n"
+            if args.report:
+                write_new_json(args.report, bundle)
+                print(json.dumps({"report": str(args.report), "integrity_digest": bundle["integrity_digest"]}))
+            else:
+                print(encoded, end="")
+            return 0
         if args.command == "benchmark":
             invocation = [sys.executable, "-m", "rewindlab", *(argv if argv is not None else sys.argv[1:])]
             command = shlex.join(invocation)

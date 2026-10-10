@@ -1,0 +1,35 @@
+{
+  "record_schema": "rewindlab.transport-smoke.v1",
+  "tested_at_utc": "2026-10-10T02:20:46Z",
+  "source_commits": {
+    "hermes_agent": "3eb7ed08d19da393196722d0b219b2ba1ec22810",
+    "omniroute": "02f2f00e7654ae19b9f930728c4e1bd22a4870d7"
+  },
+  "mocked": true,
+  "model_inference": false,
+  "mock_provider_prefix": "rewindmock",
+  "advertised_model": "rewindmock/rewindlab-smoke-1",
+  "upstream_model_captured": "rewindlab-smoke-1",
+  "transport_marker": "REWINDLAB_TRANSPORT_OK_5D21",
+  "direct_omniroute_http_status": 200,
+  "hermes_process_exit": 0,
+  "hermes_stream_event_types": ["system", "text", "result"],
+  "omniroute_auto_route_http_status": 200,
+  "rewindlab_adapter": {
+    "case_id": "malformed_schema",
+    "process_exit": 0,
+    "report_mode": "live_hermes_omniroute",
+    "api_call_made_to_mock": true,
+    "canned_fault_category": "schema_rejection",
+    "canned_citation_ids": ["attempted:1", "run:import-error", "run:expected", "run:observed"],
+    "oracle_validation_passed": true,
+    "upstream_request_contained_analyst_view": true,
+    "upstream_request_contained_run_id": true
+  },
+  "dev_model_sync": {
+    "status": "failed",
+    "error": "Next dev spawn EBADF",
+    "fixture_workaround": "POST /api/provider-models"
+  },
+  "conclusion": "Hermes-to-OmniRoute transport and RewindLab's strict live report contract worked with a canned mock response; no incident inference was tested."
+}

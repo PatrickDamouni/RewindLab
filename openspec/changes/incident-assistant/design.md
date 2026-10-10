@@ -3,9 +3,11 @@
 ## Boundary
 
 The core engine produces a versioned JSON evidence bundle with an integrity
-digest. Analysis consumes a copy of that bundle. It receives no database write
-handle and exposes no mutation operation. The report is stored separately from
-the dataset, so even a wrong diagnosis cannot change query results.
+digest. Local validation consumes a copy of that bundle; the optional live model
+receives a selected read-only analyst view derived from it. Analysis receives
+no database write handle and exposes no mutation operation. The report is
+stored separately from the dataset, so even a wrong diagnosis cannot change
+query results.
 
 The offline path renders a deterministic template from the bundle, clearly
 labeled as a baseline preview rather than AI output. The optional live path
@@ -18,8 +20,9 @@ for credentials and documents the variables in `.env.example` without values.
 ## Report contract
 
 The report includes run ID, case ID, fault hypothesis, event IDs supporting
-that hypothesis, mismatched expected/actual results, confidence or uncertainty,
+that hypothesis, expected and observed results, confidence or uncertainty,
 and a validation section comparing category and citations to the oracle.
+The observed mismatch is `null` when the run matches the oracle.
 Unsupported citations are flagged; oracle mismatch is reported, not hidden.
 Prompt and model metadata may be saved for reproducibility but must not include
 tokens or secrets.

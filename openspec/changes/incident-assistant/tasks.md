@@ -2,14 +2,14 @@
 
 ## 1. Evidence and offline path
 
-- [ ] 1.1 Export versioned evidence bundles with case ID, seed, expected/actual outputs, relevant event IDs, and a digest. Verify bundle generation leaves database and oracle digests unchanged.
-- [ ] 1.2 Produce a deterministic offline preview clearly marked as non-AI output. Verify it works from a fresh checkout without network access or credentials.
-- [ ] 1.3 Validate report citations and compare proposed fault category with the oracle. Verify an invented event ID is flagged.
+- [x] 1.1 Export versioned evidence bundles with case ID, seed, expected/actual outputs, relevant event IDs, and a digest. Verified a generated bundle is stable and the oracle fixture digest stays unchanged.
+- [x] 1.2 Produce a deterministic offline preview clearly marked as non-AI output. Verified all six corpus cases without network access or credentials.
+- [x] 1.3 Validate report citations and compare proposed fault category with the oracle. Tests flag forged and missing evidence IDs and category disagreement.
 
 ## 2. Optional Hermes and OmniRoute path
 
-- [ ] 2.1 Read current documentation and checked-out source for the actual Hermes invocation, read-only tool controls, and OmniRoute configuration. Record supported versions and a minimal smoke test before implementing the adapter.
-- [ ] 2.2 Add an opt-in live adapter that passes only selected evidence and stores no secrets in code or logs. Verify missing configuration and provider failure preserve the dataset and evidence.
+- [x] 2.1 Read checked-out Hermes `3eb7ed08` and OmniRoute `02f2f00e` docs/source for CLI, zero-tool config, and local endpoint. The live adapter passed a canned-mock transport smoke; a real-provider/model smoke remains unrun until an eligible provider exists.
+- [x] 2.2 Add an opt-in live adapter that passes only selected evidence and stores no secrets in code or logs. Mocked missing configuration, provider failure, timeout, malformed output, and child environment checks pass; saved evidence survives a missing-key failure.
 - [ ] 2.3 Evaluate live reports against labeled corpus cases and publish category agreement and citation-validity counts with the exact model/configuration used.
 
 ## 3. User test gate
