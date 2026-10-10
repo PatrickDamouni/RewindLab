@@ -9,12 +9,16 @@ PYTHONPATH=src python3 -m rewindlab corpus --case interrupted_import --json
 ```
 
 The checked-in [report](seed-1729.json) is a complete run using seed 1729. The
-synthetic source label appears on every generated revision. Duplicate and
-out-of-order delivery resolve to the same four logical revisions as baseline.
-The late-correction case isolates the correction without the late arrival;
-the malformed case must retain only its two preloaded rows. Input delivery
-digests preserve delivery order;
-logical dataset digests sort unique revisions by ID and ignore delivery order.
+synthetic source label appears on every generated revision. Baseline contains
+only two original rows. The duplicate case retries the first revision once;
+out-of-order delivery reverses the two originals. Both preserve the clean
+logical dataset. The late-correction case adds one later revision; the
+malformed case must retain only its two preloaded rows; the interruption case
+replays both a correction and a late
+arrival. Each report exposes its preload and delivery events as `input_evidence`
+so these labels can be checked against the actual source rows. Input delivery
+digests preserve delivery order; logical dataset digests sort unique revisions
+by ID and ignore delivery order.
 
 The independent oracle constructs expected snapshots with Python dictionaries
 and comparisons. It does not call the production SQLite snapshot query. Its

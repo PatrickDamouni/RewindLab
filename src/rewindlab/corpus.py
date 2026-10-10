@@ -50,9 +50,9 @@ def generated_case(case_id: str, seed: int = DEFAULT_SEED) -> dict[str, Any]:
         event("c-late", "event-c", "2025-01-03T12:00:00.000000Z", "2025-01-10T09:00:00.000000Z", values[3]),
     ]
     preload: list[dict[str, Any]] = []
-    deliveries: list[dict[str, Any]] = list(rows)
+    deliveries: list[dict[str, Any]] = rows[:2]
     if case_id == "duplicate":
-        deliveries = [rows[0], rows[0], rows[1], rows[2], rows[3], rows[2]]
+        deliveries = [rows[0], rows[0], rows[1]]
     elif case_id == "out_of_order":
         deliveries.reverse()
     elif case_id == "late_correction":
@@ -215,6 +215,8 @@ def run_case(case_id: str, seed: int = DEFAULT_SEED) -> dict[str, Any]:
     return {"case_id": case_id, "seed": seed, "source_type": "synthetic",
             "passed": mismatch is None, "first_mismatch": mismatch,
             "import_error": import_error, "recovery_evidence": recovery_evidence,
+            "input_evidence": {"preload_events": case["preload"],
+                               "delivery_events": case["deliveries"]},
             "expected": expected, "observed": observed}
 
 

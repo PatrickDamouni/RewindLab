@@ -42,8 +42,8 @@ class BatchReplayTests(unittest.TestCase):
     def test_order_and_exact_retries_preserve_digest_and_snapshot(self) -> None:
         rows = generated_case("baseline")["deliveries"]
         with RevisionStore() as first, RevisionStore() as second:
-            self.assertEqual(first.import_batch(rows), (4, 0))
-            self.assertEqual(second.import_batch(list(reversed(rows))), (4, 0))
+            self.assertEqual(first.import_batch(rows), (2, 0))
+            self.assertEqual(second.import_batch(list(reversed(rows))), (2, 0))
             self.assertEqual(first.import_batch([rows[0], rows[0]]), (0, 2))
             self.assertEqual(first.dataset_digest(), second.dataset_digest())
             self.assertEqual(first.snapshot("2025-01-03T23:59:59Z", "2025-01-04T00:00:00Z"),
@@ -61,7 +61,7 @@ class BatchReplayTests(unittest.TestCase):
 
     def test_failed_batch_preserves_uncommitted_outer_write(self) -> None:
         rows = generated_case("baseline")["deliveries"]
-        invalid = dict(rows[3])
+        invalid = dict(generated_case("interrupted_import")["deliveries"][1])
         del invalid["known_at"]
         with RevisionStore() as store:
             store.connection.execute("BEGIN")
@@ -114,8 +114,11 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual(len(first["cases"]), 6)
         baseline = first["cases"][0]["observed"]
         for case in first["cases"]:
-            if case["case_id"] in ("duplicate", "out_of_order", "interrupted_import"):
+            if case["case_id"] in ("duplicate", "out_of_order"):
                 self.assertEqual(case["observed"]["dataset_digest"], baseline["dataset_digest"])
+        self.assertEqual(baseline["row_count"], 2)
+        self.assertNotEqual(run_case("late_correction")["observed"]["dataset_digest"], baseline["dataset_digest"])
+        self.assertNotEqual(run_case("interrupted_import")["observed"]["dataset_digest"], baseline["dataset_digest"])
         late = run_case("late_correction")["observed"]["probes"]
         self.assertNotEqual(late[1]["signal_sum"], late[2]["signal_sum"])
         self.assertEqual(late[2]["signal_sum"], late[3]["signal_sum"])
@@ -126,6 +129,28 @@ class CorpusTests(unittest.TestCase):
         self.assertEqual(recovery["recovery_evidence"]["exit_code"], 86)
         self.assertEqual(recovery["recovery_evidence"]["before_digest"],
                          recovery["recovery_evidence"]["after_interrupt_digest"])
+
+    def test_case_labels_are_distinguishable_from_reported_input_evidence(self) -> None:
+        reports = {case["case_id"]: case for case in run_all()["cases"]}
+
+        def ids(case_id: str, field: str) -> list[str]:
+            return [row["revision_id"] for row in reports[case_id]["input_evidence"][field]]
+
+        self.assertEqual(ids("baseline", "delivery_events"), ["a-original", "b-original"])
+        self.assertEqual(ids("duplicate", "delivery_events"),
+                         ["a-original", "a-original", "b-original"])
+        self.assertEqual(ids("out_of_order", "delivery_events"), ["b-original", "a-original"])
+        self.assertEqual(ids("late_correction", "delivery_events"),
+                         ["a-original", "b-original", "a-corrected"])
+        self.assertEqual(ids("malformed_schema", "preload_events"), ["a-original", "b-original"])
+        self.assertEqual(ids("malformed_schema", "delivery_events"), ["a-corrected", "c-late"])
+        self.assertNotIn("known_at", reports["malformed_schema"]["input_evidence"]["delivery_events"][1])
+        self.assertEqual(ids("interrupted_import", "preload_events"), ["a-original", "b-original"])
+        self.assertEqual(ids("interrupted_import", "delivery_events"), ["a-corrected", "c-late"])
+        self.assertEqual(reports["interrupted_import"]["recovery_evidence"]["exit_code"], 86)
+        for report in reports.values():
+            for row in report["input_evidence"]["preload_events"] + report["input_evidence"]["delivery_events"]:
+                self.assertTrue(row["source"].startswith("synthetic:"))
 
     def test_unrelated_value_error_cannot_pass_malformed_case(self) -> None:
         original = RevisionStore.import_batch

@@ -3,11 +3,11 @@
     "case_id": "baseline",
     "seed": 1729,
     "source_type": "synthetic",
-    "delivery_digest": "f81db966b7bd327dd1bd5ca07951239287db447bccea6f5c91add5a57d03e72e",
-    "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
-    "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
-    "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
-    "row_count": 4,
+    "delivery_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
     "import_status": "accepted",
     "probes": [
       {
@@ -31,20 +31,19 @@
       {
         "known_through": "2025-01-09T12:00:00.000000Z",
         "record_count": 2,
-        "signal_sum": 1110,
+        "signal_sum": 312,
         "revision_ids": [
-          "a-corrected",
+          "a-original",
           "b-original"
         ]
       },
       {
         "known_through": "2025-01-10T12:00:00.000000Z",
-        "record_count": 3,
-        "signal_sum": 1414,
+        "record_count": 2,
+        "signal_sum": 312,
         "revision_ids": [
-          "a-corrected",
-          "b-original",
-          "c-late"
+          "a-original",
+          "b-original"
         ]
       }
     ]
@@ -53,11 +52,11 @@
     "case_id": "duplicate",
     "seed": 1729,
     "source_type": "synthetic",
-    "delivery_digest": "061da5990bd744d590969305d0b4fa8f4c014039d78a886feb1f24b861a137bf",
-    "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
-    "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
-    "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
-    "row_count": 4,
+    "delivery_digest": "a88e094ddc63ba5e9c105ec88f1b5910f05b33f1f9085f1710bc2db135266f73",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
     "import_status": "accepted",
     "probes": [
       {
@@ -81,20 +80,19 @@
       {
         "known_through": "2025-01-09T12:00:00.000000Z",
         "record_count": 2,
-        "signal_sum": 1110,
+        "signal_sum": 312,
         "revision_ids": [
-          "a-corrected",
+          "a-original",
           "b-original"
         ]
       },
       {
         "known_through": "2025-01-10T12:00:00.000000Z",
-        "record_count": 3,
-        "signal_sum": 1414,
+        "record_count": 2,
+        "signal_sum": 312,
         "revision_ids": [
-          "a-corrected",
-          "b-original",
-          "c-late"
+          "a-original",
+          "b-original"
         ]
       }
     ]
@@ -103,11 +101,11 @@
     "case_id": "out_of_order",
     "seed": 1729,
     "source_type": "synthetic",
-    "delivery_digest": "df214b1d440b753fa59341c373de24da0b81a151d7c3d6b1ca03bf65bef03dde",
-    "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
-    "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
-    "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
-    "row_count": 4,
+    "delivery_digest": "4cea9be393edae8b2d17f0a497768f63e2fa7c3a47185847ef06ce6537d37d8a",
+    "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+    "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+    "row_count": 2,
     "import_status": "accepted",
     "probes": [
       {
@@ -131,20 +129,19 @@
       {
         "known_through": "2025-01-09T12:00:00.000000Z",
         "record_count": 2,
-        "signal_sum": 1110,
+        "signal_sum": 312,
         "revision_ids": [
-          "a-corrected",
+          "a-original",
           "b-original"
         ]
       },
       {
         "known_through": "2025-01-10T12:00:00.000000Z",
-        "record_count": 3,
-        "signal_sum": 1414,
+        "record_count": 2,
+        "signal_sum": 312,
         "revision_ids": [
-          "a-corrected",
-          "b-original",
-          "c-late"
+          "a-original",
+          "b-original"
         ]
       }
     ]
