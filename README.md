@@ -2,7 +2,7 @@
 
 **What could a researcher actually have known at a particular time?**
 
-RewindLab is a small, reproducible data engineering project. Its first phase
+RewindLab is a small, reproducible data engineering project. Its core
 stores immutable revisions with two timestamps: `valid_at` says when an
 observation applies; `known_at` says when it became available. A historical
 query uses both. The included data is synthetic and has a known answer.
@@ -32,6 +32,37 @@ The second command prints an offline review prompt. It needs no account,
 network connection, or model provider. See [integration setup](integrations/README.md)
 for the optional live Hermes Agent route through OmniRoute.
 
+## Run the failure corpus
+
+```bash
+PYTHONPATH=src python3 -m rewindlab corpus
+PYTHONPATH=src python3 -m rewindlab corpus --case malformed_schema --json
+PYTHONPATH=src python3 -m rewindlab corpus --case interrupted_import --json
+```
+
+The six synthetic cases cover exact duplicate delivery, reversed delivery,
+malformed input, a late correction, and an interrupted import. The checked-in
+[oracle](src/rewindlab/data/oracle_seed_1729.json) was produced from plain
+Python lists and timestamp comparisons; it does not call the SQLite query.
+Each run compares all four knowledge-cutoff probes, logical row counts, and
+SHA-256 digests. The malformed case **passes** when the bad batch is rejected
+and earlier rows remain intact. The interrupted case **passes** when the
+pre-commit process exit leaves no partial rows and retry reaches the oracle.
+See the [saved corpus report](docs/corpus/seed-1729.json).
+
+To reproduce the local timing report:
+
+```bash
+PYTHONPATH=src python3 -m rewindlab benchmark --seed 1729 --events 1000 \
+  --batch-size 100 --repetitions 5 --warmup 1 \
+  --report docs/benchmarks/local-synthetic-seed-1729.json
+```
+
+The [benchmark report](docs/benchmarks/local-synthetic-seed-1729.json) includes
+raw monotonic timing samples, machine details, workload, and metric definitions.
+Results describe this local SQLite workload only. The simulated `known_at`
+timestamps do not measure live publication lag.
+
 ## Inspect a persistent dataset
 
 ```bash
@@ -48,11 +79,10 @@ repeat the demo from an empty state.
 
 ## Plan and phase gates
 
-The [roadmap](docs/roadmap.md) defines three testable phases. Phase 1 is a
-single-process point-in-time core. Phase 2 adds seeded failure cases, replay
-verification, and measured performance. Phase 3 adds a read-only incident
-assistant. The current implementation is Phase 1; later phases are planned in
-[OpenSpec changes](openspec/changes/).
+The [roadmap](docs/roadmap.md) defines three phases. The point-in-time core and
+seeded failure corpus run locally. The incident assistant has an offline prompt
+path; a live model route is optional. The requirements and remaining work are
+tracked in [OpenSpec changes](openspec/changes/).
 
 OpenSpec is installed as a **local development dependency** and initialized
 for Codex and Hermes Agent. To validate the planning artifacts:
@@ -71,7 +101,7 @@ not affect the RewindLab demo.
 
 - The revision log and queries own data correctness; AI can only review a
   JSON evidence snapshot.
-- Phase 1 uses SQLite and the Python standard library so anyone can run it
+- The core uses SQLite and the Python standard library so anyone can run it
   locally. It does not claim distributed scale or production reliability.
 - Synthetic fixture results are labeled as such. Future performance claims
   will include the workload, test machine, commands, and raw results.

@@ -3,14 +3,25 @@
 from __future__ import annotations
 
 import sqlite3
+import hashlib
+import json
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any
+from typing import Any, Iterable
 
 
 class ConflictingRevisionError(ValueError):
     """A revision ID was reused with different content."""
+
+
+class BatchValidationError(ValueError):
+    """A revision failed schema validation at a zero-based batch row index."""
+
+    def __init__(self, row_index: int, detail: str) -> None:
+        self.row_index = row_index
+        self.detail = detail
+        super().__init__(detail)
 
 
 def normalize_time(value: str) -> str:
@@ -37,15 +48,22 @@ class Revision:
 
     @classmethod
     def from_dict(cls, raw: dict[str, Any]) -> Revision:
+        if not isinstance(raw, dict):
+            raise ValueError("Revision must be a JSON object")
         required = {"revision_id", "event_id", "valid_at", "known_at", "signal_value", "source"}
         missing = required - raw.keys()
         if missing:
             raise ValueError(f"Missing revision fields: {', '.join(sorted(missing))}")
+        unexpected = raw.keys() - required
+        if unexpected:
+            raise ValueError(f"Unexpected revision fields: {', '.join(sorted(unexpected))}")
         if any(not isinstance(raw[key], str) or not raw[key].strip() for key in
                ("revision_id", "event_id", "valid_at", "known_at", "source")):
             raise ValueError("Revision IDs, source, and timestamps must be nonempty strings")
         if type(raw["signal_value"]) is not int:
             raise ValueError("signal_value must be an integer")
+        if not -(1 << 63) <= raw["signal_value"] <= (1 << 63) - 1:
+            raise ValueError("signal_value must fit a signed SQLite 64-bit integer")
         return cls(
             revision_id=raw["revision_id"],
             event_id=raw["event_id"],
@@ -99,27 +117,57 @@ class RevisionStore:
 
     def append(self, revision: Revision) -> bool:
         """Append a revision; return False for an identical retry."""
-        normalized = Revision.from_dict(revision.to_dict())
-        values = tuple(normalized.to_dict().values())
+        inserted, _ = self.import_batch([revision])
+        return inserted == 1
+
+    def import_batch(self, revisions: Iterable[Revision | dict[str, Any]]) -> tuple[int, int]:
+        """Atomically import a batch; return (new rows, identical retries).
+
+        Validation and conflict checks occur inside one SQLite savepoint.
+        A bad later row rolls back this batch while preserving an outer
+        transaction owned by the caller.
+        """
+        inserted = duplicate = 0
+        self.connection.execute("SAVEPOINT rewindlab_import_batch")
         try:
-            with self.connection:
-                self.connection.execute(
-                    """INSERT INTO revisions
-                       (revision_id, event_id, valid_at, known_at, signal_value, source)
-                       VALUES (?, ?, ?, ?, ?, ?)""",
-                    values,
-                )
-        except sqlite3.IntegrityError as exc:
-            row = self.connection.execute(
-                "SELECT * FROM revisions WHERE revision_id = ?", (normalized.revision_id,)
-            ).fetchone()
-            if row is not None and dict(row) == normalized.to_dict():
-                return False
-            raise ConflictingRevisionError(
-                f"Revision {normalized.revision_id!r} conflicts with an existing revision "
-                "or another revision for the same event and known_at"
-            ) from exc
-        return True
+            for row_index, raw in enumerate(revisions):
+                try:
+                    normalized = Revision.from_dict(raw.to_dict() if isinstance(raw, Revision) else raw)
+                except ValueError as exc:
+                    raise BatchValidationError(row_index, str(exc)) from exc
+                values = tuple(normalized.to_dict().values())
+                try:
+                    self.connection.execute(
+                        """INSERT INTO revisions
+                           (revision_id, event_id, valid_at, known_at, signal_value, source)
+                           VALUES (?, ?, ?, ?, ?, ?)""",
+                        values,
+                    )
+                    inserted += 1
+                except sqlite3.IntegrityError as exc:
+                    row = self.connection.execute(
+                        "SELECT * FROM revisions WHERE revision_id = ?", (normalized.revision_id,)
+                    ).fetchone()
+                    if row is not None and dict(row) == normalized.to_dict():
+                        duplicate += 1
+                        continue
+                    raise ConflictingRevisionError(
+                        f"Revision {normalized.revision_id!r} conflicts with an existing revision "
+                        "or another revision for the same event and known_at"
+                    ) from exc
+        except BaseException:
+            self.connection.execute("ROLLBACK TO SAVEPOINT rewindlab_import_batch")
+            self.connection.execute("RELEASE SAVEPOINT rewindlab_import_batch")
+            raise
+        self.connection.execute("RELEASE SAVEPOINT rewindlab_import_batch")
+        return inserted, duplicate
+
+    def dataset_digest(self) -> str:
+        """SHA-256 of sorted logical revisions, independent of import order."""
+        rows = [revision.to_dict() for revision in self.all_revisions()]
+        rows.sort(key=lambda row: row["revision_id"])
+        payload = json.dumps(rows, sort_keys=True, separators=(",", ":"), ensure_ascii=False)
+        return hashlib.sha256(payload.encode("utf-8")).hexdigest()
 
     def snapshot(self, valid_through: str, known_through: str | None = None) -> list[Revision]:
         """Latest version of each event known at a time, then valid-time filtered.

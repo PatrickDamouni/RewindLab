@@ -13,13 +13,15 @@ trading system or investment advice.
 
 | Phase | Deliverable | Acceptance gate |
 | --- | --- | --- |
-| 1. Point-in-time core | Local Python/SQLite CLI; immutable per-event revisions, later correction, late arrival, two-time snapshots | User runs the 90-second demo and focused tests. The historical snapshot keeps the original signal and excludes the late arrival; the latest-only view includes both. Repeating an identical revision changes nothing. |
-| 2. Fault corpus | Atomic batch replay, canonical digest, seeded duplicate, out-of-order, malformed-schema, late-correction, and interrupted-import cases; metrics report | User runs the corpus twice. Outcomes match the checked-in oracle, and the report includes method, machine, workload, throughput, p95 processing latency, and recovery time where applicable. No invented benchmark numbers. |
-| 3. Incident assistant | Read-only evidence bundle and offline dry run; optional Hermes Agent through OmniRoute | User inspects one incident report and its cited input events. The offline path works without credentials. A live provider call is optional and uses environment variables; its diagnosis is evaluated against the corpus oracle. |
+| 1. Point-in-time core | Local Python/SQLite CLI; immutable per-event revisions, later correction, late arrival, two-time snapshots | Run the 90-second demo and focused tests. The historical snapshot keeps the original signal and excludes the late arrival; the latest-only view includes both. Repeating an identical revision changes nothing. |
+| 2. Fault corpus | Atomic batch replay, canonical digest, seeded duplicate, out-of-order, malformed-schema, late-correction, and interrupted-import cases; metrics report | Run the corpus twice. Outcomes match the checked-in oracle, and the report includes method, machine, workload, throughput, p95 processing latency, and recovery time where applicable. No invented benchmark numbers. |
+| 3. Incident assistant | Read-only evidence bundle and offline dry run; optional Hermes Agent through OmniRoute | Inspect one incident report and its cited input events. The offline path works without credentials. A live provider call is optional and uses environment variables; its diagnosis is evaluated against the corpus oracle. |
 
-At each gate, stop for the user's test and feedback before broadening the next
-phase. A failed gate becomes a fix in the same phase. Each phase is an OpenSpec
-change under `openspec/changes/`; archive it only after its requirements ship.
+At each gate, run and save the acceptance evidence before broadening the next
+phase. The user's latest instruction authorizes continuous work across these
+gates; user review remains available. A failed gate becomes a fix in the same
+phase. Each phase is an OpenSpec change under `openspec/changes/`; archive it
+only after its requirements ship.
 
 ## What makes the repository compelling
 

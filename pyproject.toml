@@ -16,4 +16,4 @@ rewindlab = "rewindlab.__main__:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-rewindlab = ["data/*.jsonl"]
+rewindlab = ["data/*.jsonl", "data/*.json"]

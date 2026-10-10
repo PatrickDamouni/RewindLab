@@ -1,0 +1,662 @@
+{
+  "seed": 1729,
+  "source_type": "synthetic",
+  "passed": true,
+  "cases": [
+    {
+      "case_id": "baseline",
+      "seed": 1729,
+      "source_type": "synthetic",
+      "passed": true,
+      "first_mismatch": null,
+      "import_error": null,
+      "recovery_evidence": null,
+      "expected": {
+        "case_id": "baseline",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "f81db966b7bd327dd1bd5ca07951239287db447bccea6f5c91add5a57d03e72e",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      },
+      "observed": {
+        "case_id": "baseline",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "f81db966b7bd327dd1bd5ca07951239287db447bccea6f5c91add5a57d03e72e",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "duplicate",
+      "seed": 1729,
+      "source_type": "synthetic",
+      "passed": true,
+      "first_mismatch": null,
+      "import_error": null,
+      "recovery_evidence": null,
+      "expected": {
+        "case_id": "duplicate",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "061da5990bd744d590969305d0b4fa8f4c014039d78a886feb1f24b861a137bf",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      },
+      "observed": {
+        "case_id": "duplicate",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "061da5990bd744d590969305d0b4fa8f4c014039d78a886feb1f24b861a137bf",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "out_of_order",
+      "seed": 1729,
+      "source_type": "synthetic",
+      "passed": true,
+      "first_mismatch": null,
+      "import_error": null,
+      "recovery_evidence": null,
+      "expected": {
+        "case_id": "out_of_order",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "df214b1d440b753fa59341c373de24da0b81a151d7c3d6b1ca03bf65bef03dde",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      },
+      "observed": {
+        "case_id": "out_of_order",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "df214b1d440b753fa59341c373de24da0b81a151d7c3d6b1ca03bf65bef03dde",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "malformed_schema",
+      "seed": 1729,
+      "source_type": "synthetic",
+      "passed": true,
+      "first_mismatch": null,
+      "import_error": "Missing revision fields: known_at",
+      "recovery_evidence": null,
+      "expected": {
+        "case_id": "malformed_schema",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+        "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+        "row_count": 2,
+        "import_status": "rejected",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          }
+        ]
+      },
+      "observed": {
+        "case_id": "malformed_schema",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "a1f1a63d2640ed5190b6ab9dc145a13fff001d66ee0901ef816522523101ecf7",
+        "event_set_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "dataset_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "result_digest": "83e4946afbbb4c2f38e683e1326d9720e1e7a5761dfa18ece2a28cdb38bd2c71",
+        "row_count": 2,
+        "import_status": "rejected",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "late_correction",
+      "seed": 1729,
+      "source_type": "synthetic",
+      "passed": true,
+      "first_mismatch": null,
+      "import_error": null,
+      "recovery_evidence": null,
+      "expected": {
+        "case_id": "late_correction",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "debb5173906c2904049f2c71780dba5066cd582f6a2315b1f7d65e6f13f2a8f8",
+        "event_set_digest": "436af8a4340f9dfa446029cb3b87a93740241bd9e5097886be0a9920f8e2cd90",
+        "dataset_digest": "436af8a4340f9dfa446029cb3b87a93740241bd9e5097886be0a9920f8e2cd90",
+        "result_digest": "a127f9fa4451280f27ed8e8fcc281dec9d5ee35022e122bd2cdc82d3a19b692e",
+        "row_count": 3,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          }
+        ]
+      },
+      "observed": {
+        "case_id": "late_correction",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "debb5173906c2904049f2c71780dba5066cd582f6a2315b1f7d65e6f13f2a8f8",
+        "event_set_digest": "436af8a4340f9dfa446029cb3b87a93740241bd9e5097886be0a9920f8e2cd90",
+        "dataset_digest": "436af8a4340f9dfa446029cb3b87a93740241bd9e5097886be0a9920f8e2cd90",
+        "result_digest": "a127f9fa4451280f27ed8e8fcc281dec9d5ee35022e122bd2cdc82d3a19b692e",
+        "row_count": 3,
+        "import_status": "accepted",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "interrupted_import",
+      "seed": 1729,
+      "source_type": "synthetic",
+      "passed": true,
+      "first_mismatch": null,
+      "import_error": null,
+      "recovery_evidence": {
+        "exit_code": 86,
+        "before_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "after_interrupt_digest": "c24e53552e1806cda5bd8755602f302f8ad9baaf2990934be1cfe73ec2d26a1f",
+        "recovered_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433"
+      },
+      "expected": {
+        "case_id": "interrupted_import",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "d246d86c106cf80f01ae9c238e97ec86d6168053c95e3002c9a355c85c6d5463",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "interrupted_then_recovered",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      },
+      "observed": {
+        "case_id": "interrupted_import",
+        "seed": 1729,
+        "source_type": "synthetic",
+        "delivery_digest": "d246d86c106cf80f01ae9c238e97ec86d6168053c95e3002c9a355c85c6d5463",
+        "event_set_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "dataset_digest": "9a87234bec264f7e9bb9e4027b3d3354cbc27588edd6cce25b0b01a36a768433",
+        "result_digest": "3dc963925a60e145bb39559b019a2e6091bc3ecd9d7a6f175cd9a8467f911444",
+        "row_count": 4,
+        "import_status": "interrupted_then_recovered",
+        "probes": [
+          {
+            "known_through": "2025-01-04T00:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T08:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 312,
+            "revision_ids": [
+              "a-original",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-09T12:00:00.000000Z",
+            "record_count": 2,
+            "signal_sum": 1110,
+            "revision_ids": [
+              "a-corrected",
+              "b-original"
+            ]
+          },
+          {
+            "known_through": "2025-01-10T12:00:00.000000Z",
+            "record_count": 3,
+            "signal_sum": 1414,
+            "revision_ids": [
+              "a-corrected",
+              "b-original",
+              "c-late"
+            ]
+          }
+        ]
+      }
+    }
+  ]
+}

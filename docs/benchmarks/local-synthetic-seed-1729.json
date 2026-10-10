@@ -1,0 +1,133 @@
+{
+  "source_type": "synthetic",
+  "scope": "Local single-process SQLite ingest on this machine. Fixture known_at values are simulated historical timestamps; they are not live market-data publication lag. No distributed reliability or trading performance is measured.",
+  "command": "PYTHONPATH=src /Library/Frameworks/Python.framework/Versions/3.14/bin/python3 -m rewindlab benchmark --seed 1729 --events 1000 --batch-size 100 --repetitions 5 --warmup 1 --report docs/benchmarks/local-synthetic-seed-1729.json",
+  "workload": {
+    "seed": 1729,
+    "events_per_repetition": 1000,
+    "batch_size": 100,
+    "warmup_repetitions_discarded": 1,
+    "measured_repetitions": 5,
+    "sqlite_journal_mode": "delete"
+  },
+  "recovery_workload": {
+    "case_id": "interrupted_import",
+    "source_type": "synthetic",
+    "preloaded_revisions": 2,
+    "retried_revisions": 2,
+    "independent_of_ingest_event_count": true
+  },
+  "machine": {
+    "os": "macOS-26.6.2-arm64-arm-64bit-Mach-O",
+    "architecture": "arm64",
+    "processor": "arm",
+    "cpu_count": 12,
+    "python": "3.14.3",
+    "sqlite": "3.50.4"
+  },
+  "definitions": {
+    "ingest_elapsed_ns": "Monotonic wall time from just before first measured batch import to just after last batch acknowledgement, per fresh SQLite database; excludes fixture generation, database creation, and post-run row-count check.",
+    "throughput_events_per_second": "Accepted input events across measured repetitions divided by their summed ingest elapsed seconds.",
+    "p95_batch_acknowledgement_ms": "Nearest-rank 95th percentile of batch import call durations from harness submission to return, across all measured batches. Not per-event latency.",
+    "recovery_time_ms": "Monotonic time from launching a new Python recovery process after a controlled pre-commit exit to receiving and confirming its final dataset digest against the independent oracle. Uses a separate two-row retry from the interrupted_import corpus case, independent of --events. Excludes fault creation and pre-restart checks. One sample."
+  },
+  "raw_samples": {
+    "ingest_repetitions": [
+      {
+        "elapsed_ns": 10739334,
+        "batch_acknowledgement_ns": [
+          953084,
+          1017583,
+          998834,
+          984375,
+          1157458,
+          1210500,
+          1159875,
+          1097958,
+          1084667,
+          1052833
+        ],
+        "accepted_input_events": 1000,
+        "sqlite_journal_mode": "delete"
+      },
+      {
+        "elapsed_ns": 10774000,
+        "batch_acknowledgement_ns": [
+          955667,
+          990625,
+          985917,
+          990542,
+          1110417,
+          1200542,
+          1165291,
+          1095500,
+          1095541,
+          1166083
+        ],
+        "accepted_input_events": 1000,
+        "sqlite_journal_mode": "delete"
+      },
+      {
+        "elapsed_ns": 11274875,
+        "batch_acknowledgement_ns": [
+          1014542,
+          1124500,
+          1092959,
+          1152250,
+          1154667,
+          1071833,
+          1261375,
+          1194917,
+          1107250,
+          1080250
+        ],
+        "accepted_input_events": 1000,
+        "sqlite_journal_mode": "delete"
+      },
+      {
+        "elapsed_ns": 11384625,
+        "batch_acknowledgement_ns": [
+          1112041,
+          1007750,
+          1092000,
+          1060833,
+          1257875,
+          1068291,
+          1115458,
+          1399584,
+          1176583,
+          1075833
+        ],
+        "accepted_input_events": 1000,
+        "sqlite_journal_mode": "delete"
+      },
+      {
+        "elapsed_ns": 11996583,
+        "batch_acknowledgement_ns": [
+          926500,
+          1036458,
+          1256958,
+          1167291,
+          1190750,
+          1244916,
+          1141292,
+          1210000,
+          1236542,
+          1554500
+        ],
+        "accepted_input_events": 1000,
+        "sqlite_journal_mode": "delete"
+      }
+    ],
+    "recovery_ns": [
+      50887791
+    ]
+  },
+  "summary": {
+    "accepted_input_events": 5000,
+    "ingest_elapsed_seconds": 0.056169417,
+    "throughput_events_per_second": 89016.41261471523,
+    "p95_batch_acknowledgement_ms": 1.261375,
+    "recovery_time_ms": 50.887791
+  }
+}
