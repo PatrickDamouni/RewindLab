@@ -1,0 +1,25 @@
+schema: spec-driven
+
+context: |
+  RewindLab is a portfolio project demonstrating point-in-time data correctness,
+  deterministic replay, and measured recovery from injected faults. Phase 1 is a
+  local Python 3.14 standard-library CLI backed by SQLite, with immutable
+  per-event revisions, deterministic synthetic fixtures, and no credentials.
+  Phase 2 adds atomic batch replay, a fault corpus, and honest benchmarks.
+  Phase 3 adds an optional read-only Hermes Agent incident analyst
+  through OmniRoute, while preserving a useful offline dry run.
+
+  Implement one phase at a time. Let the user run the documented acceptance demo
+  at each phase gate before expanding scope. The ingest and query engine owns
+  correctness; the AI integration only explains evidence. Label synthetic data
+  and measured results accurately. Do not make trading or return claims.
+
+rules:
+  proposal:
+    - State what the phase proves and what is deferred.
+  specs:
+    - Write observable requirements with concrete success and failure scenarios.
+    - Keep implementation details in design.md and tasks.md.
+  tasks:
+    - Give each major task a command, test, or observable result for verification.
+    - End each phase with a user-run acceptance gate before the next phase begins.

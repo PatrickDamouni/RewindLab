@@ -1,0 +1,15 @@
+{
+  "name": "rewindlab",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local OpenSpec tooling for RewindLab",
+  "engines": {
+    "node": ">=20.19.0"
+  },
+  "scripts": {
+    "spec:check": "openspec validate --all --strict --no-interactive"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "1.14.1"
+  }
+}
