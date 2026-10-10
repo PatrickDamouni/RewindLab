@@ -104,6 +104,7 @@ The [roadmap](docs/roadmap.md) defines three phases. The point-in-time core and
 seeded failure corpus run locally. The incident assistant has a deterministic
 offline report; a live model route is optional. The requirements and remaining work are
 tracked in [OpenSpec changes](openspec/changes/).
+The [portfolio guide](docs/portfolio.md) has a short demo path and interview framing.
 
 OpenSpec is installed as a **local development dependency** and initialized
 for Codex and Hermes Agent. To validate the planning artifacts:
